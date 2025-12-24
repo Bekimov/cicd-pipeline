@@ -37,9 +37,11 @@ pipeline {
 
         stage('Docker Image Push') {
             steps {
-                docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
-                    sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
-                    sh "docker push ${DOCKER_IMAGE}:latest"
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
+                        sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
+                        sh "docker push ${DOCKER_IMAGE}:latest"
+                    }
                 }
             }
         }
