@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "bekimov/cicd-pipeline"
+        DOCKER_IMAGE = "Bekimov/cicd-pipeline"
         DOCKER_CREDENTIALS_ID = "docker_hub_creds_id"
     }
 
