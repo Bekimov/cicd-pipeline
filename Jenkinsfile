@@ -17,14 +17,14 @@ pipeline {
         stage('Application Build') {
             steps {
                 sh 'chmod +x scripts/build.sh'
-                sh 'scripts/build.sh'
+                sh './scripts/build.sh'
             }
         }
 
         stage('Tests') {
             steps {
                 sh 'chmod +x scripts/test.sh'
-                sh 'scripts/test.sh'
+                sh './scripts/test.sh'
             }
         }
 
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 withDockerRegistry(
                     credentialsId: "${DOCKER_CREDENTIALS_ID}",
-                    url: "https://registry.hub.docker.com"
+                    url: 'https://index.docker.io/v1/'
                 ) {
                     sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
                     sh "docker push ${DOCKER_IMAGE}:latest"
