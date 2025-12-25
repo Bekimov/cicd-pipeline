@@ -37,14 +37,12 @@ pipeline {
 
         stage('Docker Image Push') {
             steps {
-                script {
-                    docker.withRegistry(
-                        'https://registry.hub.docker.com',
-                        DOCKER_CREDENTIALS_ID
-                    ) {
-                        sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
-                        sh "docker push ${DOCKER_IMAGE}:latest"
-                    }
+                withDockerRegistry(
+                    credentialsId: "${DOCKER_CREDENTIALS_ID}",
+                    url: "https://registry.hub.docker.com"
+                ) {
+                    sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
+                    sh "docker push ${DOCKER_IMAGE}:latest"
                 }
             }
         }
