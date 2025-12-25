@@ -1,5 +1,11 @@
 FROM node:7.8.0
+
 WORKDIR /opt
-ADD . /opt
+
+COPY package.json package-lock.json ./
 RUN npm install
-ENTRYPOINT npm run start
+
+COPY src ./src
+COPY public ./public
+
+CMD ["npm", "start"]
