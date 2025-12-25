@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "Bekimov/cicd-pipeline"
+        DOCKER_IMAGE = "azamatbekimov/cicd-pipeline"
         DOCKER_CREDENTIALS_ID = "docker_hub_creds_id"
     }
 
@@ -38,7 +38,10 @@ pipeline {
         stage('Docker Image Push') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
+                    docker.withRegistry(
+                        'https://registry.hub.docker.com',
+                        DOCKER_CREDENTIALS_ID
+                    ) {
                         sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
                         sh "docker push ${DOCKER_IMAGE}:latest"
                     }
